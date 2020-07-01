@@ -1,0 +1,22 @@
+[number of classes]
+[max hours per semester]
+[min number of semesters]
+[min hours of optional classes]
+
+[class id 0]
+[class hours]
+[category: 1-mandatory 2-optional 3-final(also mandatory) 4-prefinal(also mandatory)]
+[number of corequisites]
+[corequisite 1] ... [corequisite n]
+[number of prerequisites]
+[prerequisite 1] ... [prerequisite n]
+
+...
+
+[class id n]
+[class hours]
+[category: 1-mandatory 2-optional 3-final(also mandatory) 4-prefinal(also mandatory)]
+[number of corequisites]
+[corequisite 1] ... [corequisite n]
+[number of prerequisites]
+[prerequisite 1] ... [prerequisite n]
