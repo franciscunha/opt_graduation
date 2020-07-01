@@ -342,7 +342,7 @@ void solve(Data &data)
 	fgp.setParam(IloCplex::TiLim, 1*60*60);
 	fgp.setParam(IloCplex::Threads, 1);
 
-	fgp.exportModel("model.lp");
+	// fgp.exportModel("model.lp");
 
 	try{
 		fgp.solve();
