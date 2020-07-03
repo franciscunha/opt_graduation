@@ -12,6 +12,7 @@ private:
     int minSemesters;
     int minOptHours;
     std::vector<int> classHours;
+    std::vector<std::vector<int>> scheduleConflict;
     std::vector<std::vector<int>> prerequisite;
     std::vector<std::vector<int>> corequisite; 
 
@@ -28,6 +29,7 @@ public:
     int getMinOptHours() { return minOptHours; }
     
     int getClassHours(int i) { return classHours[i]; }
+    int isScheduleConflict(int i, int j) { return scheduleConflict[i][j]; }
     int isPreReq(int i, int j) { return prerequisite[i][j]; }
     int isCoReq(int i, int j) { return corequisite[i][j]; }
 

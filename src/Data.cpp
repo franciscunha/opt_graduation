@@ -1,5 +1,6 @@
 #include "../include/Data.h"
 #include "../include/DataException.h"
+#include "../include/ClassSchedule.h"
 #include <fstream>
 #include <iostream>
 
@@ -17,8 +18,13 @@ Data::Data(std::string filePath)
 
 	file >> nClasses;
 	file >> maxHours;
-	file >> minSemesters;
 	file >> minOptHours;
+
+	int minNSems, takenSems;
+	file >> minNSems;
+	file >> takenSems;
+	minSemesters = minNSems - takenSems;
+	
 	if(file.bad() || file.fail()) throw DataException();
 
 	std::cout << "There are " << nClasses << " classes" << std::endl;
@@ -26,6 +32,7 @@ Data::Data(std::string filePath)
 	
     classHours = std::vector<int>(nClasses, 0);
 
+	std::vector<ClassSchedule> classSchedules = std::vector<ClassSchedule>(nClasses, ClassSchedule());
 	std::vector<int> classCategories = std::vector<int>(nClasses, 0);
 	std::vector<Pair> coreqPairs;
 	std::vector<Pair> prereqPairs;
@@ -36,8 +43,12 @@ Data::Data(std::string filePath)
 
 		int classID = i;
 		file >> classID;
-		
 		file >> classHours[classID];
+
+		std::string scheduleStr;
+		file >> scheduleStr;
+		classSchedules[classID] = ClassSchedule(scheduleStr);
+
 		file >> classCategories[classID];
 
 		// Fill vector of corequisite pairs
@@ -135,6 +146,22 @@ Data::Data(std::string filePath)
 		int j = prereqPairs[k].j;
 
 		prerequisite[i][j] = 1;
+	}
+
+	scheduleConflict = std::vector<std::vector<int>>(nClasses, std::vector<int>(nClasses, 0));
+
+	// Fill schedule conflict vector
+	for(int i = 0; i < classSchedules.size(); i++)
+	{
+		for(int j = 0; j < classSchedules.size(); j++)
+		{
+			if(i == j){
+				scheduleConflict[i][j] = 0;
+				continue;
+			} 
+			
+			if(classSchedules[i].hasConflict(classSchedules[j])) scheduleConflict[i][j] = 1;
+		}
 	}
 
 }

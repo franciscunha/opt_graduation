@@ -334,6 +334,22 @@ void solve(Data &data)
 		model.add(restriction);
 	}
 
+	// (13) - Handles schedule conflict
+	for(int i : classes)
+	{
+		for(int j : classes)
+		{
+			for(int k : semesters)
+			{
+				IloRange restriction = (data.isScheduleConflict(i,j) * (x[i][k] + x[j][k]) - 1 <= 0);
+				sprintf(name, "R_SchConflict(%d,%d,S:%d)", i, j, k);
+				restriction.setName(name);
+
+				model.add(restriction);
+			}
+		}
+	}
+
 
 	/// Solve
 	const double tol = 0.1;
