@@ -291,7 +291,7 @@ void solve(Data &data)
 			sum_k_KX += k*x[i][k];
 		}
 
-		IloRange restriction = (sum_k_Y - 1 - sum_k_KX <= 0);
+		IloRange restriction = (sum_k_Y - sum_k_KX <= 0);
 		sprintf(name, "R_fClasses(%d)", i);
 		restriction.setName(name);
 
@@ -310,25 +310,8 @@ void solve(Data &data)
 			sum_k_KX += k*x[i][k];
 		}
 
-		IloRange restriction = ((sum_k_Y - 2) - sum_k_KX <= 0);
+		IloRange restriction = ((sum_k_Y - 1) - sum_k_KX <= 0);
 		sprintf(name, "R_pfClasses(%d)", i);
-		restriction.setName(name);
-
-		model.add(restriction);
-	}
-
-	// (12) - Y can't be active if there are no classes that semester
-	for(int k : semesters)
-	{
-		IloExpr sum_i_X(env);
-
-		for(int i : classes)
-		{
-			sum_i_X += x[i][k];
-		}
-
-		IloRange restriction = (sum_i_X - y[k] >= 0);
-		sprintf(name, "R_Spread(%d)", k);
 		restriction.setName(name);
 
 		model.add(restriction);
@@ -358,7 +341,7 @@ void solve(Data &data)
 	fgp.setParam(IloCplex::TiLim, 1*60*60);
 	fgp.setParam(IloCplex::Threads, 1);
 
-	// fgp.exportModel("model.lp");
+	fgp.exportModel("model.lp");
 
 	try{
 		fgp.solve();

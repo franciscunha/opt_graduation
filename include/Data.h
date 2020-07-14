@@ -8,8 +8,10 @@ class Data
 {
 private:
     int nClasses;
+    int minHours;
     int maxHours;
     int minSemesters;
+    int maxSemesters;
     int minOptHours;
     std::vector<int> classHours;
     std::vector<std::vector<int>> scheduleConflict;
@@ -25,6 +27,7 @@ public:
     int getNClasses() { return nClasses; }
     
     int getMaxHours() { return maxHours; }
+    int getMinHours() { return minHours; }
     int getMinSemesters() { return minSemesters; }
     int getMinOptHours() { return minOptHours; }
     
@@ -33,13 +36,8 @@ public:
     int isPreReq(int i, int j) { return prerequisite[i][j]; }
     int isCoReq(int i, int j) { return corequisite[i][j]; }
 
-    std::vector<int> getClasses() {
-        std::vector<int> classes;
-        for(int i = 0; i < nClasses; i++)
-            classes.push_back(i);
-        return classes;
-    }
-    std::vector<int> getSemesters() { return getClasses(); }
+    std::vector<int> getClasses();
+    std::vector<int> getSemesters();
     std::vector<int> getOptClasses() { return optionalClasses; }
     std::vector<int> getManClasses() { return mandatoryClasses; }
     std::vector<int> getFinClasses() { return finalClasses; }

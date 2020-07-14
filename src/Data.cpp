@@ -18,7 +18,9 @@ Data::Data(std::string filePath)
 
 	file >> nClasses;
 	file >> maxHours;
+	file >> minHours;
 	file >> minOptHours;
+	file >> maxSemesters;
 
 	int minNSems, takenSems;
 	file >> minNSems;
@@ -164,4 +166,20 @@ Data::Data(std::string filePath)
 		}
 	}
 
+}
+
+std::vector<int> Data::getClasses() 
+{
+	std::vector<int> classes;
+	for(int i = 0; i < nClasses; i++)
+		classes.push_back(i);
+	return classes;
+}
+
+std::vector<int> Data::getSemesters()
+{
+	std::vector<int> semesters;
+	for(int i = 1; i <= maxSemesters; i++)
+		semesters.push_back(i);
+	return semesters;
 }
