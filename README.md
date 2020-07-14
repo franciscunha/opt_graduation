@@ -1,6 +1,7 @@
 # Opt Graduation
 Optimized graduation time (min possible number of semesters), respecting:
 - max class hours limit per semester
+- schedule conflicts
 - class prerequisites
 - class corequisites
 - min optional-classes hours
